@@ -9,11 +9,7 @@ export const config = {
     dataBase:{
         URL: process.env.MONGO_URL,
         options:{
-            pool: {
-                max : 5,
-                min : 0,
-                idle: 10000
-            },
+            poolSize: 5,
             useUnifiedTopology  : true,
             connectTimeoutMS    : 10000,
             socketTimeoutMS     : 45000,
