@@ -11,8 +11,8 @@ const ProductSchema = new Schema({
     metricPrice: { type: String, required: 'Enter a metric price' },
     image: { type: String },
     quantity: { type: String, required: 'Enter an image' },
-    metric: { type: String, required: 'Enter a metric' },
-    tags: [{ type: String, enum: metrics }],
+    metric: { type: String, enum: metrics, required: 'Enter a metric' },
+    tags: [{ type: String }],
     publisher: { type: Schema.Types.ObjectId, ref:'User', required: 'Enter a userId' },
     status: { type: Boolean, default: true },
     }, { timestamps: true });

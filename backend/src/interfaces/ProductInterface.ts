@@ -12,7 +12,7 @@ export interface IProduct extends Document {
     metric: string;
     tags?: string[];
     publisher: string;
-    status: boolean;
+    status?: boolean;
 }
 
 
@@ -20,7 +20,7 @@ export interface IProduct extends Document {
  *
  */
 export interface IProductPrototype {
-    _id: IProduct['_id'];
+    _id?: IProduct['_id'];
     name: string;
     description: string;
     metricPrice: string;
@@ -29,7 +29,7 @@ export interface IProductPrototype {
     metric: string;
     tags?: string[];
     publisher: string;
-    status: boolean;
+    status?: boolean;
 }
 
 /**
