@@ -1,7 +1,7 @@
 /**
  * Importing required interfaces
  */
-import { IUser } from '../interfaces/UserInterfaces';
+import { IUser, IUserPrototype } from '../interfaces/UserInterfaces';
 /**
  * Importing Libreries
  */
@@ -24,14 +24,45 @@ const userSchema = new Schema({
         productName:    { type: String, required: "The productName is required" }, 
         desiredPrice:   { type: Number },
         quantity:       { type: Number },
-        description:    { type: String  }
+        description:    { type: String }
      }]
 }, {
     timestamps: true
 });
 
 
-export default model<IUser>('User', userSchema);
+userSchema.pre<IUser>('save', async function (next) {
+    // Hash the password before saving the user model
+    const user = this;
+    if (user.isModified('password')) {
+        user.password = await Bcrypt.hash(user.password, 8)
+    }
+    next()
+})
+
+userSchema.methods.generateAuthToken = async function() {
+    // Generate an auth token for the user
+    const user = this
+    const token = JWT.sign({_id: user._id}, process.env.JWT_KEY)
+    user.tokens = user.tokens.concat({token})
+    await user.save()
+    return token
+}
+
+userSchema.statics.findByCredentials = async (email: string, password: string) => {
+    // Search for a user by email and password.
+    const user: IUser = await User.findOne({ email} )
+    if (!user) {
+        throw new Error('Invalid login credentials');
+    }
+    const isPasswordMatch = await Bcrypt.compare(password, user.password)
+    if (!isPasswordMatch) {
+        throw new Error('Invalid login credentials');
+    }
+    return user
+}
+const User = model<IUser>('User', userSchema)
+module.exports = User
 
 
 
