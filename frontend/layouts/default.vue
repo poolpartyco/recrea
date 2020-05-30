@@ -64,6 +64,11 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-cart-outline',
+          title: 'Products',
+          to: '/products'
         }
       ],
       miniVariant: true,
