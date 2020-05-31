@@ -14,6 +14,14 @@ export default class WishListProductServices {
                 return this.respond(res, new ResponseOperation<IUser>(false, HttpCode.BAD_REQUEST, null, {msf: 'Incorrect params'}));
             }
         });
+
+        app.get('/apisec/wishlist/myList', (req: Request, res: Response) => {
+            try {
+                this.getMyList(req, res);
+            } catch (e){
+                return this.respond(res, new ResponseOperation<IUser>(false, HttpCode.BAD_REQUEST, null, {msf: 'Incorrect params'}));
+            }
+        })
     }
 
     private static create(req: any, res: Response){
@@ -25,7 +33,15 @@ export default class WishListProductServices {
             quantity: req.body.quantity,
             description: req.body.description,
         }
-        controller.createWishProduct(userId , userData)
+        controller.createWishProduct(userId, userData)
+            .then((result) => this.respond(res, result))
+            .catch((result) => this.respond(res, result));
+    }
+
+    public static getMyList(req: any, res: Response){
+        const controller: IWishListProductController = new WishListProductMongo();
+        const userId:string = String(req.user._id);
+        controller.getMyWishList(userId)
             .then((result) => this.respond(res, result))
             .catch((result) => this.respond(res, result));
     }
