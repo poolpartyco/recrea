@@ -44,7 +44,7 @@
       required
     ></v-text-field>
 
-    <v-text-field v-model="company" label="Compañia" required></v-text-field>
+    <v-text-field v-model="company" label="Compañía" required></v-text-field>
 
     <v-text-field
       v-model="password"

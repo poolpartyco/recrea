@@ -93,7 +93,8 @@ export default {
       type: Boolean
     },
     image: {
-      default: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+      default:
+        'https://www.upb.edu.co/es/imagenes/img-compost-1464181045289.jpg',
       type: String
     }
   },

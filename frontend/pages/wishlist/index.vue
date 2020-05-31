@@ -4,8 +4,8 @@
       <section class="section-header">
         <h1>Productos</h1>
         <p>
-          Mira los productos que los demás usuarios de la comunidad estan
-          buscando. ¿Será que tu lo tienes?
+          Mira los productos que los demás usuarios de la comunidad están
+          buscando. ¿Será que tú lo tienes?
         </p>
       </section>
       <section id="products-list" class="products-list">

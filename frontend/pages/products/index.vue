@@ -4,7 +4,7 @@
       <section class="section-header">
         <h1>Productos</h1>
         <p>
-          Mira los productos que los demás usuarios de la comunidad estan
+          Mira los productos que los demás usuarios de la comunidad están
           ofreciendo. ¿Alguno te interesa?
         </p>
       </section>

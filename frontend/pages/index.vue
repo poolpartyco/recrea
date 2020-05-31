@@ -7,7 +7,7 @@
             <h1>Recrea</h1>
             <p>
               La plataforma que facilita la simbiosis industrial.<br />
-              ¿Ya estas adentro?
+              ¿Ya estás adentro?
             </p>
             <v-btn color="primary" nuxt to="/register/">
               ¡Quiero inscribirme ya!
@@ -45,23 +45,23 @@
       </section>
       <section id="steps" class="steps">
         <v-layout row justify-center align-top>
-          <step title="Registrate" icon="mdi-account-plus-outline">
-            Estas a un solo click de unirte, ¡Hazlo ahora!
+          <step title="Regístrate" icon="mdi-account-plus-outline">
+            Estás a un solo click de unirte, ¡hazlo ahora!
           </step>
           <step title="¿Que buscas?" icon="mdi-star-outline">
-            ¿Que buscas? ó ¿Que tienes para ofrecer?
+            ¿Qué buscas? o ¿qué tienes para ofrecer?
           </step>
           <step title="Busca" icon="mdi-magnify">
             Busca tus potenciales nuevos socios o aliados
           </step>
           <step title="Contacta" icon="mdi-card-account-mail-outline">
-            Haz una llamada ó envia un mensaje
+            Haz una llamada o envía un mensaje
           </step>
           <step title="Cierra tu trato" icon="mdi-draw">
-            No hay nada mejor que un buen negocio. ¿Que esperas?
+            No hay nada mejor que un buen negocio. ¿Qué esperas?
           </step>
           <step title="Repite" icon="mdi-infinity">
-            ¡Hazlo una y otra vez! ¡Sera genial!
+            ¡Hazlo una y otra vez! ¡Será genial!
           </step>
         </v-layout>
         <v-btn color="primary" nuxt to="/register/" class="text-align-center">
