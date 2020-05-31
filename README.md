@@ -10,10 +10,14 @@ responsable en una economía circular.
 
 # Autores:
 * Yorman Andrés Aguirre
-* Ana María Bedoya
-* Juan Pablo Calad
-* Josue Daniel Bustamante
 * Santiago Baena
+* Ana María Bedoya
+* Josue Daniel Bustamante
+* Juan Pablo Calad
+* Miguel Marín
 
 # Tecnologías:
 VueJS, Docker, Node, AWS, Nginx
+
+# Link al sitio:
+http://ec2-18-219-199-165.us-east-2.compute.amazonaws.com/
