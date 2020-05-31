@@ -70,6 +70,11 @@ export default {
           icon: 'mdi-cart-plus',
           title: 'Agregar producto',
           to: '/add-product'
+        },
+        {
+          icon: 'mdi-account-search',
+          title: 'Lista de deseos',
+          to: '/wishlist'
         }
       ],
       miniVariant: true,
