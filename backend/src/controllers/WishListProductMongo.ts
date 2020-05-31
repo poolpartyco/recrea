@@ -14,9 +14,26 @@ export default class IWishListProductControllerMongo implements IWishListProduct
                             new ResponseOperation<IWishProduct>(true, HttpCode.OK, wishProduct)
                         );
                     })
-            }).catch((err)=>{
+            }).catch(err => {
                 return Promise.reject(
                     new ResponseOperation<IUser>(false, HttpCode.INTERNAL_ERROR, null, err)
+                );
+            })
+    }
+
+    public async getWishList(): Promise<ResponseOperation<IWishProduct[]>>{
+        return UserModelMongo.find().exec()
+            .then((users: IUser[]) => {
+                const wishListProducts = users.map(user =>{
+                    return user.wishList;
+                });
+                const wishList = wishListProducts.reduce((accumulator, value) => accumulator.concat(value), []);
+                return Promise.resolve(
+                    new ResponseOperation<IWishProduct[]>(true, HttpCode.OK, wishList)
+                );
+            }).catch(err => {
+                return Promise.reject(
+                    new ResponseOperation<IWishProduct[]>(false, HttpCode.INTERNAL_ERROR, null, err)
                 );
             })
     }
@@ -28,9 +45,9 @@ export default class IWishListProductControllerMongo implements IWishListProduct
                 return Promise.resolve(
                     new ResponseOperation<IWishProduct[]>(true, HttpCode.OK, wishList)
                 );
-            }).catch((err) =>{
+            }).catch(err =>{
                 return Promise.reject(
-                    new ResponseOperation<IUser>(false, HttpCode.INTERNAL_ERROR, null, err)
+                    new ResponseOperation<IWishProduct[]>(false, HttpCode.INTERNAL_ERROR, null, err)
                 );
             })
     }
