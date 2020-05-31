@@ -1,5 +1,12 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
+    <v-layout column justify-center align-center>
+      <v-flex xs12 sm8 md3>
+        <section class="section-header">
+          <h1>Registro</h1>
+        </section>
+      </v-flex>
+    </v-layout>
     <v-text-field
       v-model="name"
       :counter="80"
@@ -129,3 +136,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+section {
+  margin: 5rem 0;
+  &:first-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  &.section-header {
+    margin: 2rem 0;
+    text-align: center;
+    h1 {
+      color: $color-2;
+      font-size: 3rem;
+    }
+  }
+}
+.text-align-center {
+  text-align: center;
+}
+</style>
