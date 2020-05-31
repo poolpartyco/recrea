@@ -52,6 +52,9 @@ module.exports = {
     theme: {
       dark: false,
       themes: {
+        light: {
+          primary: '#7EA656'
+        },
         dark: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
