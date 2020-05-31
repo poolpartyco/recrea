@@ -5,9 +5,9 @@ import { HttpCode } from './HttpCodes';
 import {config} from '../config';
 
 const AuthenticationFunction = async(req: any, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization').replace('Bearer ', '')
-    const data: any = Jwt.verify(token, config.auth.token_key)
     try {
+        const token = req.header('Authorization').replace('Bearer ', '')
+        const data: any = Jwt.verify(token, config.auth.token_key)
         const user = await UserModel.findOne({ _id: data._id, 'tokens.token': token })
         if (!user) {
             throw new Error()
