@@ -86,12 +86,12 @@ export default {
         },
         {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWQzYjE3OTAzNjQ1ZTAwMTFkNzI0ZjciLCJpYXQiOjE1OTA5MzE4MzN9.RQsxzhwOiYp6gs67dXHVYbUgHpnalOS1OqzGmW-ltBA'
+            Authorization: `Bearer ${this.$cookies.get('token')}`
           }
         }
       )
-      if (response.data.status) {
+      this.$router.push(`/`)
+      if (response.data.data[0].status) {
         this.reset()
         this.resetValidation()
       }
