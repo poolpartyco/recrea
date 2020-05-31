@@ -8,24 +8,22 @@
       </v-flex>
     </v-layout>
     <v-text-field v-model="name" class="mt-5" label="Nombre"></v-text-field>
-    <v-container fluid>
-      <v-textarea
-        v-model="description"
-        autocomplete="Descripción"
-        label="Descripción"
-      ></v-textarea>
-    </v-container>
-    <v-col cols="8">
-      <v-text-field
-        v-model="metricPrice"
-        label="Precio"
-        value="10.00"
-        prefix="$"
-      ></v-text-field>
-    </v-col>
+    <v-textarea
+      v-model="description"
+      class="mx-auto"
+      autocomplete="Descripción"
+      label="Descripción"
+    ></v-textarea>
+    <v-text-field
+      v-model="metricPrice"
+      class="mx-auto"
+      label="Precio"
+      value="10.00"
+      prefix="$"
+    ></v-text-field>
     <v-text-field
       v-model="quantity"
-      class="mx-4"
+      class="mx-1"
       label="Cantidad"
       max="50"
       min="1"
