@@ -28,6 +28,7 @@
 
 <script>
 import axios from 'axios'
+import config from '~/config.js'
 
 export default {
   data: () => ({
@@ -52,7 +53,7 @@ export default {
     async validate() {
       this.$refs.form.validate()
       const response = await axios.post(
-        'http://f609f50a4c35.ngrok.io/api/user/signin',
+        `${config.backend.host}:${config.backend.port}/api/user/signup`,
         {
           email: this.email,
           password: this.password
