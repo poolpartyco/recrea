@@ -29,38 +29,14 @@
       style="width: 500px"
       type="number"
     ></v-text-field>
-    <v-text-field class="mt-5" label="Unidades"></v-text-field>
-    <v-text-field
-      v-model="publisher"
-      class="mt-5"
-      label="Publicado por"
-    ></v-text-field>
-    <v-file-input
-      v-model="image"
-      class="mt-4"
-      color="deep-purple accent-4"
-      counter
-      label="Adjuntar imagen"
-      multiple
-      placeholder="Selecciona la imagen"
-      prepend-icon="mdi-paperclip"
-      outlined
-      :show-size="1000"
-    >
-      <template v-slot:selection="{ index, text }">
-        <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
-          {{ text }}
-        </v-chip>
-
-        <span
-          v-else-if="index === 2"
-          class="overline grey--text text--darken-3 mx-2"
-        >
-          +{{ image.length - 2 }} File(s)
-        </span>
-      </template>
-    </v-file-input>
-    <v-btn color="success" class="md-4">
+    <v-select
+      id="metrics"
+      v-model="metrics"
+      :items="metricsList"
+      label="Unidades"
+    ></v-select>
+    <v-text-field v-model="image" class="mt-5" label="Imagen"></v-text-field>
+    <v-btn color="success" class="md-4" @click="validate">
       Agregar
     </v-btn>
   </v-form>
@@ -68,26 +44,49 @@
 
 <script>
 import axios from 'axios'
+import config from '~/config.js'
 
 export default {
-  data: () => ({
-    image: []
-  }),
+  data() {
+    return {
+      name: '',
+      description: '',
+      metricPrice: '',
+      image: '',
+      quantity: '',
+      metricsList: ['Kilos', 'Gramos'],
+      metrics: '',
+      tags: ''
+    }
+  },
+
+  async mounted() {
+    const response = await axios
+      .get(`${config.backend.host}:${config.backend.port}/api/rule/metrics`)
+      .then((res) => {
+        this.metricsList = res.data.data
+      })
+    return response
+  },
 
   methods: {
     async validate() {
-      this.$refs.form.validate()
       const response = await axios.post(
-        'http://f609f50a4c35.ngrok.io/apisec/product/create',
+        `${config.backend.host}:${config.backend.port}/apisec/product/create`,
         {
           name: this.name,
           description: this.description,
           metricPrice: this.metricPrice,
           image: this.image,
           quantity: this.quantity,
-          metric: this.metric,
-          tags: this.tags,
-          publisher: this.publisher
+          metric: this.metrics,
+          tags: this.tags
+        },
+        {
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWQzYjE3OTAzNjQ1ZTAwMTFkNzI0ZjciLCJpYXQiOjE1OTA5MzE4MzN9.RQsxzhwOiYp6gs67dXHVYbUgHpnalOS1OqzGmW-ltBA'
+          }
         }
       )
       if (response.data.status) {

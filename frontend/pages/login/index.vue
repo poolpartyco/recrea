@@ -14,7 +14,6 @@
       :type="show3 ? 'text' : 'password'"
       name="input-10-2"
       label="Contraseña"
-      hint="At least 8 characters"
       value=""
       class="input-group--focused"
       @click:append="show3 = !show3"
@@ -53,15 +52,14 @@ export default {
     async validate() {
       this.$refs.form.validate()
       const response = await axios.post(
-        `${config.backend.host}:${config.backend.port}/api/user/signup`,
+        `${config.backend.host}:${config.backend.port}/api/user/signin`,
         {
           email: this.email,
           password: this.password
         }
       )
-      if (response.success) {
-        // eslint-disable-next-line
-        console.log('Datos enviados con exito')
+      if (response.data.data[0].status) {
+        this.$router.push(`/user/${response.data.data[0]._id}`)
       }
     },
     reset() {
