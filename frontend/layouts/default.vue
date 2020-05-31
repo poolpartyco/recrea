@@ -8,6 +8,9 @@
       app
     >
       <v-list>
+        <v-btn icon @click.stop="miniVariant = !miniVariant">
+          <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
+        </v-btn>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -24,21 +27,14 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-    </v-app-bar>
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }} - Pool Party Co.</span>
-    </v-footer>
+    <footer>
+      <p>&copy; Copyright 2020 - Pool Party Co. Team</p>
+    </footer>
   </v-app>
 </template>
 
@@ -51,19 +47,24 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home-circle-outline',
           title: 'Recrea',
           to: '/'
         },
         {
-          icon: 'mdi-account',
+          icon: 'mdi-account-check-outline',
           title: 'Login',
           to: '/login'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-account-plus-outline',
+          title: 'Register',
+          to: '/register'
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'Products',
+          to: '/products'
         }
       ],
       miniVariant: true,
@@ -72,3 +73,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+footer {
+  border: 1px solid $color-1;
+  color: $color-1;
+  text-align: center;
+  padding: 2rem 0;
+  p {
+    margin: 0 !important;
+  }
+}
+</style>
