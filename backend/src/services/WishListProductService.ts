@@ -30,6 +30,14 @@ export default class WishListProductServices {
                 return this.respond(res, new ResponseOperation<IUser>(false, HttpCode.BAD_REQUEST, null, {msf: 'Incorrect params'}));
             }
         })
+
+        app.get('/api/wishlist/byUserId/:userId', (req: Request, res: Response) => {
+            try {
+                this.getListByUserId(req, res);
+            } catch (e){
+                return this.respond(res, new ResponseOperation<IUser>(false, HttpCode.BAD_REQUEST, null, {msf: 'Incorrect params'}));
+            }
+        })
     }
 
     private static create(req: any, res: Response){
@@ -55,7 +63,15 @@ export default class WishListProductServices {
 
     public static getMyList(req: any, res: Response){
         const controller: IWishListProductController = new WishListProductMongo();
-        const userId:string = String(req.user._id);
+        const userId:string = String(req.user.id);
+        controller.getMyWishList(userId)
+            .then((result) => this.respond(res, result))
+            .catch((result) => this.respond(res, result));
+    }
+
+    public static getListByUserId(req: Request, res: Response){
+        const controller: IWishListProductController = new WishListProductMongo();
+        const userId:string = String(req.params.userId);
         controller.getMyWishList(userId)
             .then((result) => this.respond(res, result))
             .catch((result) => this.respond(res, result));

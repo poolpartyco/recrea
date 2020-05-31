@@ -35,6 +35,15 @@ export default class ProductServices {
             }
         });
 
+        app.get('/api/product/byUserId/:userId', (req: Request, res: Response) => {
+            try {
+                this.getProductsByUserId(req, res);
+            } catch (e) {
+                const message = e;
+                this.response(res, new ResponseOperation<IProduct>(false, HttpCode.BAD_REQUEST, null, { message }));
+            }
+        });
+
         app.get('/api/product/:id', (req: Request, res: Response) => {
             try {
                 this.getProduct(req, res);
@@ -112,6 +121,16 @@ export default class ProductServices {
         const limit: number = +req.query.limit || 10;
         const page: number = +req.query.page || 1;
         const userId:string = String(req.user._id);
+        productController.getMyProducts(limit, page, userId)
+            .then((result) => this.response(res, result))
+            .catch((result) => this.response(res, result));
+    }
+
+    private static getProductsByUserId(req: any, res: Response) {
+        const productController: IProductController = new ProductControllerMongo();
+        const limit: number = +req.query.limit || 10;
+        const page: number = +req.query.page || 1;
+        const userId:string = String(req.params.userId);
         productController.getMyProducts(limit, page, userId)
             .then((result) => this.response(res, result))
             .catch((result) => this.response(res, result));
