@@ -14,7 +14,6 @@
       :type="show3 ? 'text' : 'password'"
       name="input-10-2"
       label="Contraseña"
-      hint="At least 8 characters"
       value=""
       class="input-group--focused"
       @click:append="show3 = !show3"
