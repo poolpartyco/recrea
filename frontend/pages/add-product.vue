@@ -1,27 +1,29 @@
 <template>
   <v-form>
-    <div class="display-1">
-      Agregar producto
-    </div>
+    <v-layout column justify-center align-center>
+      <v-flex xs12 sm8 md3>
+        <section class="section-header">
+          <h1>Agregar producto</h1>
+        </section>
+      </v-flex>
+    </v-layout>
     <v-text-field v-model="name" class="mt-5" label="Nombre"></v-text-field>
-    <v-container fluid>
-      <v-textarea
-        v-model="description"
-        autocomplete="Descripción"
-        label="Descripción"
-      ></v-textarea>
-    </v-container>
-    <v-col cols="8">
-      <v-text-field
-        v-model="metricPrice"
-        label="Precio"
-        value="10.00"
-        prefix="$"
-      ></v-text-field>
-    </v-col>
+    <v-textarea
+      v-model="description"
+      class="mx-auto"
+      autocomplete="Descripción"
+      label="Descripción"
+    ></v-textarea>
+    <v-text-field
+      v-model="metricPrice"
+      class="mx-auto"
+      label="Precio"
+      value="10.00"
+      prefix="$"
+    ></v-text-field>
     <v-text-field
       v-model="quantity"
-      class="mx-4"
+      class="mx-1"
       label="Cantidad"
       max="50"
       min="1"
@@ -29,38 +31,14 @@
       style="width: 500px"
       type="number"
     ></v-text-field>
-    <v-text-field class="mt-5" label="Unidades"></v-text-field>
-    <v-text-field
-      v-model="publisher"
-      class="mt-5"
-      label="Publicado por"
-    ></v-text-field>
-    <v-file-input
-      v-model="image"
-      class="mt-4"
-      color="deep-purple accent-4"
-      counter
-      label="Adjuntar imagen"
-      multiple
-      placeholder="Selecciona la imagen"
-      prepend-icon="mdi-paperclip"
-      outlined
-      :show-size="1000"
-    >
-      <template v-slot:selection="{ index, text }">
-        <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
-          {{ text }}
-        </v-chip>
-
-        <span
-          v-else-if="index === 2"
-          class="overline grey--text text--darken-3 mx-2"
-        >
-          +{{ image.length - 2 }} File(s)
-        </span>
-      </template>
-    </v-file-input>
-    <v-btn color="success" class="md-4">
+    <v-select
+      id="metrics"
+      v-model="metrics"
+      :items="metricsList"
+      label="Unidades"
+    ></v-select>
+    <v-text-field v-model="image" class="mt-5" label="Imagen"></v-text-field>
+    <v-btn color="success" class="md-4" @click="validate">
       Agregar
     </v-btn>
   </v-form>
@@ -68,26 +46,49 @@
 
 <script>
 import axios from 'axios'
+import config from '~/config.js'
 
 export default {
-  data: () => ({
-    image: []
-  }),
+  data() {
+    return {
+      name: '',
+      description: '',
+      metricPrice: '',
+      image: '',
+      quantity: '',
+      metricsList: ['Kilos', 'Gramos'],
+      metrics: '',
+      tags: ''
+    }
+  },
+
+  async mounted() {
+    const response = await axios
+      .get(`${config.backend.host}:${config.backend.port}/api/rule/metrics`)
+      .then((res) => {
+        this.metricsList = res.data.data
+      })
+    return response
+  },
 
   methods: {
     async validate() {
-      this.$refs.form.validate()
       const response = await axios.post(
-        'http://f609f50a4c35.ngrok.io/apisec/product/create',
+        `${config.backend.host}:${config.backend.port}/apisec/product/create`,
         {
           name: this.name,
           description: this.description,
           metricPrice: this.metricPrice,
           image: this.image,
           quantity: this.quantity,
-          metric: this.metric,
-          tags: this.tags,
-          publisher: this.publisher
+          metric: this.metrics,
+          tags: this.tags
+        },
+        {
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWQzYjE3OTAzNjQ1ZTAwMTFkNzI0ZjciLCJpYXQiOjE1OTA5MzE4MzN9.RQsxzhwOiYp6gs67dXHVYbUgHpnalOS1OqzGmW-ltBA'
+          }
         }
       )
       if (response.data.status) {
@@ -104,3 +105,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+section {
+  margin: 5rem 0;
+  &:first-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  &.section-header {
+    margin: 2rem 0;
+    text-align: center;
+    h1 {
+      color: $color-2;
+      font-size: 3rem;
+    }
+  }
+}
+.text-align-center {
+  text-align: center;
+}
+</style>

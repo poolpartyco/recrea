@@ -17,7 +17,7 @@
             sm6
             md4
           >
-            <product v-bind="product" />
+            <product v-bind="product" :type="true" />
           </v-flex>
         </v-layout>
       </section>
