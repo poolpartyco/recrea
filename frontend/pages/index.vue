@@ -83,7 +83,7 @@ section {
 section.header-banner {
   padding: 2rem 0 0;
   h1 {
-    color: $color-1;
+    color: $color-2;
     font-size: 7rem;
   }
   p {

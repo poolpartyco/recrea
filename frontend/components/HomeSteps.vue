@@ -16,7 +16,7 @@
   margin-bottom: 2rem;
   padding: 0 1.5rem;
   p.step-icon {
-    color: $color-1;
+    color: $color-2;
     display: block;
     margin-bottom: 0;
     min-height: 7rem;
@@ -39,15 +39,15 @@
       left: 0;
       right: 0;
       margin: auto;
-      border: 2px solid $color-1;
+      border: 2px solid $color-3;
       border-radius: 50%;
     }
     &:hover {
-      color: $color-1;
+      color: $color-2;
     }
   }
   h3.step-title {
-    color: $color-1;
+    color: $color-4;
     font-size: 1.8rem;
   }
   div.step-description {
