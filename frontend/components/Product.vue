@@ -1,33 +1,32 @@
 <template>
-  <v-card class="mx-auto" max-width="344">
+  <v-card class="product mx-auto">
     <v-img
       src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
       height="200px"
-    ></v-img>
+    >
+      <v-chip class="ma-2" color="pink" label text-color="white">
+        <v-icon left>mdi-label</v-icon>
+        {{ type ? 'Ofertado' : 'Buscado' }}
+      </v-chip>
+    </v-img>
 
     <v-card-title>
       {{ name }}
     </v-card-title>
 
-    <v-card-quantity>
-      {{ `Cantidad: ${quantity}` }}
-    </v-card-quantity>
-
-    <div>
-      <v-card-metricPrice>
-        {{ `Precio: $ ${metricPrice}` }}
-      </v-card-metricPrice>
-    </div>
+    <v-card-text>
+      <p class="product-quantity">
+        <span>Cantidad: </span>
+        <span>{{ quantity }}</span>
+      </p>
+      <p class="product-price">
+        <span>Precio: </span>
+        <span>{{ metricPrice }}</span>
+      </p>
+    </v-card-text>
 
     <v-card-actions>
-      <v-btn text>Agregar</v-btn>
-
-      <v-btn color="purple" text>
-        Eliminar
-      </v-btn>
-
       <v-spacer></v-spacer>
-
       <v-btn icon @click="show = !show">
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
@@ -36,10 +35,9 @@
     <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-
-        <v-card-description>
+        <v-card-text>
           {{ description }}
-        </v-card-description>
+        </v-card-text>
       </div>
     </v-expand-transition>
   </v-card>
@@ -63,6 +61,10 @@ export default {
     quantity: {
       default: 'quantity',
       type: String
+    },
+    type: {
+      default: false,
+      type: Boolean
     }
   },
   data: () => ({
@@ -70,3 +72,31 @@ export default {
   })
 }
 </script>
+
+<style lang="scss">
+.product {
+  max-width: 90%;
+  margin: auto;
+  .v-card__title {
+    color: $color-2;
+  }
+  > .v-card__text {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    p {
+      margin: 0;
+      span {
+        &:first-of-type {
+          color: $color-2;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  > .v-card__actions {
+    button .v-btn__content i {
+      color: $color-2;
+    }
+  }
+}
+</style>

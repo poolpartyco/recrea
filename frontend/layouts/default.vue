@@ -75,9 +75,26 @@ export default {
 </script>
 
 <style lang="scss">
+.v-list {
+  .v-list-item {
+    .v-icon:before {
+      color: $color-5;
+    }
+    &:hover {
+      .v-icon:before {
+        color: $color-2;
+      }
+    }
+    &--active {
+      .v-icon:before {
+        color: $color-1;
+      }
+    }
+  }
+}
 footer {
-  border: 1px solid $color-1;
-  color: $color-1;
+  border: 1px solid $color-2;
+  color: $color-4;
   text-align: center;
   padding: 2rem 0;
   p {

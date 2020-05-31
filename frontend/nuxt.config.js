@@ -53,7 +53,7 @@ module.exports = {
       dark: false,
       themes: {
         light: {
-          primary: '#7EA656'
+          primary: '#038C0C'
         },
         dark: {
           primary: colors.blue.darken2,
