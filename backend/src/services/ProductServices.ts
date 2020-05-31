@@ -44,7 +44,7 @@ export default class ProductServices {
             }
         });
 
-        app.put('/apisec/product/activate/:id', (req: Request, res: Response) => {
+        app.put('/apisec/product/activate', (req: Request, res: Response) => {
             try {
                 this.activateProduct(req, res);
             } catch (e) {
@@ -53,7 +53,7 @@ export default class ProductServices {
             }
         });
 
-        app.put('/apisec/product/inactivate/:id', (req: Request, res: Response) => {
+        app.put('/apisec/product/inactivate', (req: Request, res: Response) => {
             try {
                 this.inactivateProduct(req, res);
             } catch (e) {
@@ -75,14 +75,14 @@ export default class ProductServices {
     private static create(req: Request, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
         const product: IProductPrototype = {
-            name: String(req.body.name || ''),
-            description: String(req.body.description || ''),
-            metricPrice: String(req.body.metricPrice || ''),
-            image: String(req.body.image || ''),
-            quantity: String(req.body.quantity || ''),
-            metric: String(req.body.metric || ''),
-            tags: Array(req.body.tags || ''),
-            publisher: String(req.body.publisher || ''),
+            name: req.body.name,
+            description: req.body.description,
+            metricPrice: req.body.metricPrice,
+            image: req.body.image,
+            quantity: req.body.quantity,
+            metric: req.body.metric,
+            tags: req.body.tags,
+            publisher: req.body.publisher,
         };
         productController.createProduct(product)
             .then((result: ResponseOperation<IProduct>) => this.response(res, result))
@@ -107,15 +107,15 @@ export default class ProductServices {
     private static updateProduct(req: Request, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
         const product: IProductPrototype = {
-            _id: String(req.body._id || ''),
-            name: String(req.body.name || ''),
-            description: String(req.body.description || ''),
-            metricPrice: String(req.body.metricPrice || ''),
-            image: String(req.body.image || ''),
-            quantity: String(req.body.quantity || ''),
-            metric: String(req.body.metric || ''),
-            tags: Array(req.body.tags || ''),
-            publisher: String(req.body.publisher || ''),
+            _id: req.body._id,
+            name: req.body.name,
+            description: req.body.description,
+            metricPrice: req.body.metricPrice,
+            image: req.body.image,
+            quantity: req.body.quantity,
+            metric: req.body.metric,
+            tags: req.body.tags,
+            publisher: req.body.publisher,
         };
         productController.updateProduct(product)
             .then((result) => this.response(res, result))
@@ -124,16 +124,16 @@ export default class ProductServices {
 
     private static activateProduct(req: Request, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
-        const { id } = req.params;
-        productController.activateProductById(id)
+        const { productId } = req.body;
+        productController.activateProductById(productId)
             .then((result) => this.response(res, result))
             .catch((result) => this.response(res, result));
     }
 
     private static inactivateProduct(req: Request, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
-        const { id } = req.params;
-        productController.inactiveProductById(id)
+        const { productId } = req.body;
+        productController.inactiveProductById(productId)
             .then((result) => this.response(res, result))
             .catch((result) => this.response(res, result));
     }

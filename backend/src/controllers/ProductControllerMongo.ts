@@ -58,7 +58,7 @@ export default class ProductControllerMongo implements IProductController {
                     );
                 }
                 const { _id } = foundProduct;
-                return ProductModel.update({ _id }, product).exec()
+                return ProductModel.findOneAndUpdate({ _id }, product, { new:true, runValidators: true }).exec()
                     .then((newProduct: IProduct) => {
                         return Promise.resolve(
                             new ResponseOperation<IProduct>(true, HttpCode.OK, newProduct)
@@ -83,7 +83,7 @@ export default class ProductControllerMongo implements IProductController {
                     );
                 }
                 const { _id } = foundProduct;
-                return ProductModel.update({ _id }, { status: true }).exec()
+                return ProductModel.findOneAndUpdate({ _id }, { status: true }, { new:true }).exec()
                     .then((newProduct: IProduct) => {
                         return Promise.resolve(
                             new ResponseOperation<IProduct>(true, HttpCode.OK, newProduct)
@@ -108,7 +108,7 @@ export default class ProductControllerMongo implements IProductController {
                     );
                 }
                 const { _id } = foundProduct;
-                return ProductModel.update({ _id }, { status: false }).exec()
+                return ProductModel.findOneAndUpdate({ _id }, { status: false }, { new:true }).exec()
                     .then((newProduct: IProduct) => {
                         return Promise.resolve(
                             new ResponseOperation<IProduct>(true, HttpCode.OK, newProduct)

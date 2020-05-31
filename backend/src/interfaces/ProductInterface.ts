@@ -6,9 +6,9 @@ import mongoose, { Document } from 'mongoose';
 export interface IProduct extends Document {
     name: string;
     description: string;
-    metricPrice: string;
+    metricPrice: number;
     image?: string;
-    quantity: string;
+    quantity: number;
     metric: string;
     tags?: string[];
     publisher: string;
@@ -21,14 +21,14 @@ export interface IProduct extends Document {
  */
 export interface IProductPrototype {
     _id?: IProduct['_id'];
-    name: string;
-    description: string;
-    metricPrice: string;
+    name?: string;
+    description?: string;
+    metricPrice?: number;
     image?: string;
-    quantity: string;
-    metric: string;
+    quantity?: number;
+    metric?: string;
     tags?: string[];
-    publisher: string;
+    publisher?: string;
     status?: boolean;
 }
 
