@@ -10,6 +10,7 @@ import Validator from 'validator';
 import Bcrypt from 'bcryptjs';
 import JWT from 'jsonwebtoken';
 import { config } from '../config';
+import {metrics} from '../rules/MetricList';
 
 const userSchema = new Schema({
     nickname:   { type: String, required: "The nickname is required", unique: "The nickname must be unique" },
@@ -25,6 +26,7 @@ const userSchema = new Schema({
         productName:    { type: String, required: "The productName is required" }, 
         desiredPrice:   { type: Number },
         quantity:       { type: Number },
+        metric:         { type: String, enum: metrics, required: 'Enter a metric' },
         description:    { type: String }
      }]
 }, {

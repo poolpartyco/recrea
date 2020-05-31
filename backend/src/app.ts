@@ -7,6 +7,7 @@ import authentication from './helpers/AuthenticationFunction';
 import ProductServices from './services/ProductServices';
 import UserServices from './services/UserServices';
 import WishListProductService from './services/WishListProductService';
+import RuleServices from './services/RuleServices';
 import AuthenticationServices from './services/AuthenticationServices';
 
 class App {
@@ -36,6 +37,7 @@ class App {
         ProductServices.routes(this.app);
         UserServices.routes(this.app);
         WishListProductService.routes(this.app);
+        RuleServices.routes(this.app);
         AuthenticationServices.routes(this.app);
     }
 }

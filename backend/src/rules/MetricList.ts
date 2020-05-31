@@ -5,4 +5,5 @@ export const metrics = [
     'Square Meter',
     'Cubic Meters',
     'Units',
+    'Tons',
 ]

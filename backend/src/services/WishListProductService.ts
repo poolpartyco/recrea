@@ -43,13 +43,14 @@ export default class WishListProductServices {
     private static create(req: any, res: Response){
         const controller: IWishListProductController = new WishListProductMongo();
         const userId:string = String(req.user._id);
-        const userData: IWishProduct = {
+        const wishProductData: IWishProduct = {
             productName: req.body.productName,
             desiredPrice: req.body.desiredPrice,
             quantity: req.body.quantity,
+            metric: req.body.metric,
             description: req.body.description,
         }
-        controller.createWishProduct(userId, userData)
+        controller.createWishProduct(userId, wishProductData)
             .then((result) => this.respond(res, result))
             .catch((result) => this.respond(res, result));
     }

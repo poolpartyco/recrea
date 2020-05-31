@@ -34,6 +34,7 @@ export interface IWishProduct {
     productName: string,
     desiredPrice: number,
     quantity: number,
+    metric: string;
     description: string,
 }
 
