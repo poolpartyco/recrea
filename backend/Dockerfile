@@ -1,7 +1,14 @@
-FROM node:latest
-RUN mkdir /src
+FROM node:10-alpine
+
+# Create app directory
 WORKDIR /src
-ADD package.json /src/package.json
+
+# Install app dependencies
+COPY package*.json ./
 RUN npm install
-EXPOSE 3000
-CMD nodemon server.ts
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "src/server.ts" ]
