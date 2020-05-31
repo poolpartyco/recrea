@@ -56,6 +56,6 @@ export interface IUserController {
 // TODO Complete
 export interface IWishListProductController{
     createWishProduct(userId: string, wishProduct: IWishProduct): Promise<ResponseOperation<IWishProduct>>;
-    getWishList(): Promise<ResponseOperation<IWishProduct[]>>;
+    getWishList(): Promise<ResponseOperation<any[]>>;
     getMyWishList(userId: string): Promise<ResponseOperation<IWishProduct[]>>;
 }
