@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data: () => ({
     show3: false,
@@ -47,12 +49,15 @@ export default {
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
-      const response = this.$axios.post('', {
-        email: this.email,
-        password: this.password
-      })
+      const response = await axios.post(
+        'http://f609f50a4c35.ngrok.io/api/user/signin',
+        {
+          email: this.email,
+          password: this.password
+        }
+      )
       if (response.success) {
         // eslint-disable-next-line
         console.log('Datos enviados con exito')

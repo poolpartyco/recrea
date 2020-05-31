@@ -58,13 +58,18 @@ export default {
         },
         {
           icon: 'mdi-account-plus-outline',
-          title: 'Register',
+          title: 'Registro',
           to: '/register'
         },
         {
           icon: 'mdi-cart-outline',
-          title: 'Products',
+          title: 'Productos',
           to: '/products'
+        },
+        {
+          icon: 'mdi-cart-plus',
+          title: 'Agregar producto',
+          to: '/add-product'
         }
       ],
       miniVariant: true,
