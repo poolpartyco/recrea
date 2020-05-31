@@ -84,7 +84,7 @@ export default {
     repeatPassword: '',
     nameRules: [
       (v) => !!v || 'Name is required',
-      (v) => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      (v) => (v && v.length <= 80) || 'Name must be less than 80 characters'
     ],
     rules: {
       required: (value) => !!value || 'Required.',
