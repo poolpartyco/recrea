@@ -39,7 +39,7 @@ export default class AuthenticationControllerMongo implements IAuthenticationCon
                 return Promise.resolve( new ResponseOperation<IUser>(true, HttpCode.OK, oldUser));
             })
         }).catch((error: any) => {
-            return Promise.resolve( new ResponseOperation<IUser>(true, HttpCode.INTERNAL_ERROR, null, error))
+            return Promise.reject( new ResponseOperation<IUser>(false, HttpCode.INTERNAL_ERROR, null, error))
         })
     }
 }

@@ -2,10 +2,11 @@ import  Jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 import  UserModel from '../models/UserModelMongo';
 import { HttpCode } from './HttpCodes';
+import {config} from '../config';
 
 const AuthenticationFunction = async(req: any, res: Response, next: NextFunction) => {
     const token = req.header('Authorization').replace('Bearer ', '')
-    const data: any = Jwt.verify(token, process.env.JWT_KEY)
+    const data: any = Jwt.verify(token, config.auth.token_key)
     try {
         const user = await UserModel.findOne({ _id: data._id, 'tokens.token': token })
         if (!user) {

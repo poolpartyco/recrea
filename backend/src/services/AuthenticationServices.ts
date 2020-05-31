@@ -16,7 +16,7 @@ export default class AuthenticationServices {
             }
         });
 
-        app.put('/api/user/signout', (req: Request, res: Response) => {
+        app.put('/apisec/user/signout', (req: Request, res: Response) => {
             try {
                 this.signout(req, res);
             } catch (e){
@@ -41,7 +41,7 @@ export default class AuthenticationServices {
         const controller: IAuthenticationController = new AuthenticationControllerMongo();
 
         const userData: IUserPrototype = {
-            email: req.body.email
+            email: req.user.email
         }
         controller.signOut(userData, req.token)
         .then((result) => this.response(res, result))
