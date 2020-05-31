@@ -7,7 +7,7 @@ import { HttpCode } from '../helpers/HttpCodes';
 
 export default class UserServices {
 
-    public static routes(app: Express){
+    public static routes(app: any){
         app.post('/api/user/signup', (req: Request, res: Response) => {
             try {
                 this.create(req, res);

@@ -7,7 +7,7 @@ import AuthenticationControllerMongo from '../controllers/AuthenticationControll
 
 export default class AuthenticationServices {
 
-    public static routes(app: Express){
+    public static routes(app: any){
         app.post('/api/user/signin', (req: Request, res: Response) => {
             try {
                 this.signin(req, res);
@@ -37,13 +37,13 @@ export default class AuthenticationServices {
         .catch((result) => this.response(res, result));
     }
 
-    private static signout(req: Request, res: Response){
+    private static signout(req: any, res: Response){
         const controller: IAuthenticationController = new AuthenticationControllerMongo();
 
         const userData: IUserPrototype = {
             email: req.body.email
         }
-        controller.signOut(userData, '')
+        controller.signOut(userData, req.token)
         .then((result) => this.response(res, result))
         .catch((result) => this.response(res, result));
     }
