@@ -62,12 +62,6 @@ export default {
           to: '/register'
         },
         {
-          icon: 'mdi-apps',
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        },
-        {
           icon: 'mdi-cart-outline',
           title: 'Products',
           to: '/products'
