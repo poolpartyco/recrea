@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import {config} from './config';
+import ProductServices from './services/ProductServices'
 
 class App {
     public app: express.Application;
@@ -10,6 +11,7 @@ class App {
     constructor() {
         this.app = express();
         this.config();
+        this.addServices();
         this.mongoSetup();
     }
 
@@ -21,6 +23,10 @@ class App {
     private mongoSetup(): void {
         mongoose.Promise = global.Promise;
         mongoose.connect(this.mongoUrl, config.dataBase.options);
+    }
+
+    private addServices(): void {
+        ProductServices.routes(this.app);
     }
 }
 
