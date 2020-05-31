@@ -55,12 +55,12 @@ export default {
       type: String
     },
     metricPrice: {
-      default: 'metricPrice',
-      type: String
+      default: 0,
+      type: Number
     },
     quantity: {
-      default: 'quantity',
-      type: String
+      default: 0,
+      type: Number
     },
     type: {
       default: false,

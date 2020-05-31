@@ -1,7 +1,14 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md3>
-      <section id="header-banner" class="header-banner">
+      <section class="section-header">
+        <h1>Productos</h1>
+        <p>
+          Mira los productos que los demás usuarios de la comunidad estan
+          ofreciendo. ¿Alguno te interesa?
+        </p>
+      </section>
+      <section id="products-list" class="products-list">
         <v-layout row justify-center align-top>
           <v-flex
             v-for="(product, index) in products"
@@ -19,6 +26,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '~/config.js'
 import Product from '~/components/Product.vue'
 
 export default {
@@ -27,10 +36,21 @@ export default {
   },
   data() {
     return {
-      products: {}
+      products: [],
+      items: 0
     }
   },
-  async mounted() {}
+  async mounted() {
+    const response = await axios
+      .get(
+        `${config.backend.host}:${config.backend.port}/api/product/all?page=1&limit=12`
+      )
+      .then((res) => {
+        this.products = res.data.data.result
+        this.items = res.data.data.total
+      })
+    return response
+  }
 }
 </script>
 
@@ -41,30 +61,14 @@ section {
     margin-top: 0;
     margin-bottom: 0;
   }
-}
-section.header-banner {
-  padding: 2rem 0 0;
-  h1 {
-    color: $color-1;
-    font-size: 7rem;
+  &.section-header {
+    margin: 2rem 0;
+    text-align: center;
+    h1 {
+      color: $color-2;
+      font-size: 3rem;
+    }
   }
-  p {
-    font-size: 1.5rem;
-  }
-  img {
-    display: block;
-    margin: auto;
-    max-width: 80%;
-  }
-}
-section.who-we-are {
-  img {
-    display: block;
-    margin: auto;
-  }
-}
-section.steps {
-  text-align: center;
 }
 .text-align-center {
   text-align: center;
