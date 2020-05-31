@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {config} from './config';
 import authentication from './helpers/AuthenticationFunction';
 import ProductServices from './services/ProductServices';
@@ -19,6 +20,7 @@ class App {
     }
 
     private config(): void {
+        this.app.use(cors());
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.all('/apisec/*', authentication);
