@@ -30,6 +30,13 @@ export interface IUserPrototype {
     wishList?: IWishProduct[];
 }
 
+export interface IWishProduct {
+    productName: string,
+    desiredPrice: number,
+    quantity: number,
+    description: string,
+}
+
 
 export interface IAuthenticationController{
     signIn(user: IUserPrototype): Promise<ResponseOperation<[IUser, string]>>;
@@ -47,12 +54,5 @@ export interface IUserController {
 
 // TODO Complete
 export interface IWishListProductController{
-    addProduct(product: IWishProduct): ResponseOperation<IUser>;
-}
-
-export interface IWishProduct {
-    productName: string, 
-    desiredPrice: number,
-    quantity: number,
-    description: string,
+    createWishProduct(userId: string, wishProduct: IWishProduct): Promise<ResponseOperation<IUser>>;
 }
