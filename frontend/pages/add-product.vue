@@ -29,7 +29,12 @@
       style="width: 500px"
       type="number"
     ></v-text-field>
-    <v-text-field v-model="metric" class="mt-5" label="Unidades"></v-text-field>
+    <v-select
+      id="metrics"
+      v-model="metrics"
+      :items="metricsList"
+      label="Unidades"
+    ></v-select>
     <v-text-field v-model="image" class="mt-5" label="Imagen"></v-text-field>
     <v-btn color="success" class="md-4" @click="validate">
       Agregar
@@ -42,15 +47,27 @@ import axios from 'axios'
 import config from '~/config.js'
 
 export default {
-  data: () => ({
-    name: '',
-    description: '',
-    metricPrice: '',
-    image: '',
-    quantity: '',
-    metric: '',
-    tags: ''
-  }),
+  data() {
+    return {
+      name: '',
+      description: '',
+      metricPrice: '',
+      image: '',
+      quantity: '',
+      metricsList: ['Kilos', 'Gramos'],
+      metrics: '',
+      tags: ''
+    }
+  },
+
+  async mounted() {
+    const response = await axios
+      .get(`${config.backend.host}:${config.backend.port}/api/rule/metrics`)
+      .then((res) => {
+        this.metricsList = res.data.data
+      })
+    return response
+  },
 
   methods: {
     async validate() {
@@ -62,7 +79,7 @@ export default {
           metricPrice: this.metricPrice,
           image: this.image,
           quantity: this.quantity,
-          metric: this.metric,
+          metric: this.metrics,
           tags: this.tags
         },
         {
