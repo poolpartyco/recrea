@@ -1,10 +1,7 @@
 <template>
   <v-card class="product mx-auto">
     <a :href="'/user/' + publisher._id">
-      <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        height="200px"
-      >
+      <v-img :src="image" height="200px">
         <v-chip v-if="type" class="ma-2" color="green" label text-color="white">
           <v-icon left>mdi-star</v-icon> Ofertado
         </v-chip>
@@ -94,6 +91,10 @@ export default {
     onProfile: {
       default: false,
       type: Boolean
+    },
+    image: {
+      default: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+      type: String
     }
   },
   data: () => ({
