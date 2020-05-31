@@ -26,6 +26,9 @@
     </v-card-text>
 
     <v-card-actions>
+      <v-btn class="product-company" text :to="'/user/' + publisher._id">
+        {{ publisher.company }}
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -61,6 +64,15 @@ export default {
     quantity: {
       default: 0,
       type: Number
+    },
+    publisher: {
+      default() {
+        return {
+          company: '',
+          _id: ''
+        }
+      },
+      type: Object
     },
     type: {
       default: false,
