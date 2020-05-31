@@ -48,20 +48,14 @@
     ></v-text-field>
 
     <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-    </v-btn>
-
-    <v-btn color="error" class="mr-4" @click="reset">
-      Reset Form
-    </v-btn>
-
-    <v-btn color="warning" @click="resetValidation">
-      Reset Validation
+      Registrarse
     </v-btn>
   </v-form>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data: () => ({
     valid: true,
@@ -86,8 +80,24 @@ export default {
   }),
 
   methods: {
-    validate() {
+    async validate() {
       this.$refs.form.validate()
+      const response = await axios.post(
+        'http://f609f50a4c35.ngrok.io/api/user/signup',
+        {
+          nickname: this.nick,
+          firstName: this.name,
+          lastName: this.lastName,
+          email: this.email,
+          phone: this.phoneNumber,
+          company: this.company,
+          password: this.password
+        }
+      )
+      if (response.data.status) {
+        this.reset()
+        this.resetValidation()
+      }
     },
     reset() {
       this.$refs.form.reset()
