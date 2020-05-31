@@ -1,9 +1,21 @@
 <template>
-  <div>
-    <div v-for="(product, index) in products" :key="index">
-      <product v-bind="product" />
-    </div>
-  </div>
+  <v-layout column justify-center align-center>
+    <v-flex xs12 sm8 md3>
+      <section id="header-banner" class="header-banner">
+        <v-layout row justify-center align-top>
+          <v-flex
+            v-for="(product, index) in products"
+            :key="index"
+            xs12
+            sm6
+            md4
+          >
+            <product v-bind="product" />
+          </v-flex>
+        </v-layout>
+      </section>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -15,35 +27,46 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          tags: ['agro'],
-          status: true,
-          _id: '5ed2cd1ea125cc4468ed5512',
-          name: 'Abono',
-          description: 'Desechado en proceso de producción',
-          metricPrice: '34.879',
-          image: 'buffer',
-          quantity: '56',
-          metric: 'Kilograms',
-          createdAt: '2020-05-30T21:16:14.575Z',
-          updatedAt: '2020-05-30T21:16:14.575Z'
-        },
-        {
-          tags: ['agro'],
-          status: true,
-          _id: '5ed2cd1ea125cc4468ed5512',
-          name: 'Asserrín',
-          description: 'Desechado en proceso industrial',
-          metricPrice: '34.879',
-          image: 'buffer',
-          quantity: '34',
-          metric: 'Kilograms',
-          createdAt: '2020-05-30T21:16:14.575Z',
-          updatedAt: '2020-05-30T21:16:14.575Z'
-        }
-      ]
+      products: {}
     }
-  }
+  },
+  async mounted() {}
 }
 </script>
+
+<style lang="scss" scoped>
+section {
+  margin: 5rem 0;
+  &:first-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+section.header-banner {
+  padding: 2rem 0 0;
+  h1 {
+    color: $color-1;
+    font-size: 7rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  img {
+    display: block;
+    margin: auto;
+    max-width: 80%;
+  }
+}
+section.who-we-are {
+  img {
+    display: block;
+    margin: auto;
+  }
+}
+section.steps {
+  text-align: center;
+}
+.text-align-center {
+  text-align: center;
+}
+</style>
