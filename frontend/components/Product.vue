@@ -20,7 +20,7 @@
         <span>{{ quantity }}</span>
       </p>
       <p class="product-price">
-        <span>Precio: </span>
+        <span>{{ type ? 'Precio' : 'Precio Deseado' }}: </span>
         <span>{{ metricPrice }}</span>
       </p>
     </v-card-text>
@@ -88,7 +88,7 @@ export default {
 <style lang="scss">
 .product {
   max-width: 90%;
-  margin: auto;
+  margin: 1rem auto;
   .v-card__title {
     color: $color-2;
   }
