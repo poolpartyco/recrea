@@ -9,6 +9,13 @@
       {{ name }}
     </v-card-title>
 
+    <div>
+      <v-chip class="ma-2" color="pink" label text-color="white">
+        <v-icon left>mdi-label</v-icon>
+        {{ type ? 'Ofertado' : 'Buscado' }}
+      </v-chip>
+    </div>
+
     <v-card-quantity>
       {{ `Cantidad: ${quantity}` }}
     </v-card-quantity>
@@ -20,12 +27,6 @@
     </div>
 
     <v-card-actions>
-      <v-btn text>Agregar</v-btn>
-
-      <v-btn color="purple" text>
-        Eliminar
-      </v-btn>
-
       <v-spacer></v-spacer>
 
       <v-btn icon @click="show = !show">
@@ -63,6 +64,10 @@ export default {
     quantity: {
       default: 'quantity',
       type: String
+    },
+    type: {
+      default: false,
+      type: Boolean
     }
   },
   data: () => ({
