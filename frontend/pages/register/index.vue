@@ -68,7 +68,12 @@
 
 <script>
 import axios from 'axios'
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
 import config from '~/config.js'
+
+Vue.use(VueCookies)
+Vue.$cookies.config('30d')
 
 export default {
   data: () => ({
@@ -117,6 +122,7 @@ export default {
       if (response.data.data[0].status) {
         this.reset()
         this.resetValidation()
+        this.$cookies.set('token', response.data.data[1])
         this.$router.push(`/user/${response.data.data[0]._id}`)
       }
     },
