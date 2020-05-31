@@ -37,7 +37,7 @@ export interface IProductPrototype {
  */
 export interface IProductController {
     createProduct(product: IProductPrototype): Promise<ResponseOperation<IProduct>>;
-    getProducts(): Promise<ResponseOperation<IProduct[]>>;
+    getProducts(limit: number, page: number): Promise<ResponseOperation<{result: IProduct[], total: number}>>;
     getProductById(id: IProduct['_id']): Promise<ResponseOperation<IProduct>>;
     updateProduct(product: IProductPrototype): Promise<ResponseOperation<IProduct>>;
     activateProductById(id: IProduct['_id']): Promise<ResponseOperation<IProduct>>;

@@ -72,7 +72,7 @@ export default class ProductServices {
         });
     }
 
-    private static create(req: Request, res: Response) {
+    private static create(req: any, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
         const product: IProductPrototype = {
             name: req.body.name,
@@ -82,7 +82,7 @@ export default class ProductServices {
             quantity: req.body.quantity,
             metric: req.body.metric,
             tags: req.body.tags,
-            publisher: req.body.publisher,
+            publisher: req.user._id,
         };
         productController.createProduct(product)
             .then((result: ResponseOperation<IProduct>) => this.response(res, result))
@@ -91,7 +91,9 @@ export default class ProductServices {
 
     private static getAll(req: Request, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
-        productController.getProducts()
+        const limit: number = +req.query.limit || 10;
+        const page: number = +req.query.page || 1;
+        productController.getProducts(limit, page)
             .then((result) => this.response(res, result))
             .catch((result) => this.response(res, result));
     }
@@ -104,7 +106,7 @@ export default class ProductServices {
             .catch((result) => this.response(res, result));
     }
 
-    private static updateProduct(req: Request, res: Response) {
+    private static updateProduct(req: any, res: Response) {
         const productController: IProductController = new ProductControllerMongo();
         const product: IProductPrototype = {
             _id: req.body._id,
@@ -115,7 +117,7 @@ export default class ProductServices {
             quantity: req.body.quantity,
             metric: req.body.metric,
             tags: req.body.tags,
-            publisher: req.body.publisher,
+            publisher: req.user._id,
         };
         productController.updateProduct(product)
             .then((result) => this.response(res, result))

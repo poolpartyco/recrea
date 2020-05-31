@@ -19,22 +19,26 @@ export default class ProductControllerMongo implements IProductController {
             });
     }
 
-    public async getProducts(): Promise<ResponseOperation<IProduct[]>>{
-        return ProductModel.find().exec()
-            .then((products: IProduct[]) => {
+    public async getProducts(limit: number, page: number): Promise<ResponseOperation<{result: IProduct[], total: number}>>{
+        const skip: number = (page-1)*limit;
+        const promise1 = ProductModel.find({ status: true }, {}, { limit, skip})
+            .populate({ path: 'publisher', select: ['company', 'email', 'nickname', 'status']}).exec();
+        const promise2 = ProductModel.countDocuments({ status: true }).exec()
+        return Promise.all([promise1, promise2])
+            .then(([result, total]) => {
                 return Promise.resolve(
-                    new ResponseOperation<IProduct[]>(true, HttpCode.OK, products)
+                    new ResponseOperation<{result: IProduct[], total: number}>(true, HttpCode.OK, {result, total})
                 );
             })
             .catch((err) => {
                 return Promise.reject(
-                    new ResponseOperation<IProduct[]>(false, HttpCode.INTERNAL_ERROR, null, err)
+                    new ResponseOperation<{result: IProduct[], total: number}>(false, HttpCode.INTERNAL_ERROR, null, err)
                 );
             });
     }
 
     public async getProductById(id: IProduct['_id']): Promise<ResponseOperation<IProduct>>{
-        return ProductModel.findById({ _id: id }).exec()
+        return ProductModel.findById({ _id: id }).populate({ path: 'publisher', select: ['company', 'email', 'nickname', 'status']}).exec()
             .then((product: IProduct) => {
                 return Promise.resolve(
                     new ResponseOperation<IProduct>(true, HttpCode.OK, product)

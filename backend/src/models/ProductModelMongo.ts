@@ -13,7 +13,7 @@ const ProductSchema = new Schema({
     quantity: { type: Number, required: 'Enter a quantity' },
     metric: { type: String, enum: metrics, required: 'Enter a metric' },
     tags: { type: Array },
-    publisher: { type: String, required: 'Enter a userId' },
+    publisher: { type: Schema.Types.ObjectId, ref:'User', required: 'Enter a userId' },
     status: { type: Boolean, default: true },
     }, { timestamps: true });
 
