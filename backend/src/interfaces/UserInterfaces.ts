@@ -7,10 +7,15 @@ export interface IUser extends Document {
     lastName: string,
     phone?: string,
     email: string,
+    tokens: string[],
     password: string,
     company?: string,
     status: boolean,
     wishList: IWishProduct[];
+
+    generateAuthToken(): Promise<string>;
+    validatePassword(password: string): Promise<boolean>;
+    removeAuthToken(token: string): Promise<IUser>;
 }
 
 export interface IUserPrototype {
@@ -27,16 +32,17 @@ export interface IUserPrototype {
 
 
 export interface IAuthenticationController{
-    signIn(user: IUserPrototype): ResponseOperation<IUser>;
+    signIn(user: IUserPrototype): Promise<ResponseOperation<[IUser, string]>>;
+    signOut(user: IUserPrototype, token: string): Promise<ResponseOperation<IUser>>;
 }
 
-export interface IUserControllers {
-    createUser(user: IUserPrototype): ResponseOperation<IUser>;
-    getUserById(id: IUser['_id']): ResponseOperation<IUser>;
-    updateUser(user: IUserPrototype): ResponseOperation<IUser>;
-    deleteUserById(id: IUser['_id']): ResponseOperation<IUser>;
-    activateById(id: IUser['_id']): ResponseOperation<IUser>;
-    inactivateById(id: IUser['_id']): ResponseOperation<IUser>;
+export interface IUserController {
+    createUser(user: IUserPrototype): Promise<ResponseOperation<[IUser, string]>>;
+    getUserById(id: IUser['_id']): Promise<ResponseOperation<IUser>>;
+    updateUser(user: IUserPrototype): Promise<ResponseOperation<IUser>>;
+    deleteUserById(id: IUser['_id']): Promise<ResponseOperation<IUser>>;
+    activateById(id: IUser['_id']): Promise<ResponseOperation<IUser>>;
+    inactivateById(id: IUser['_id']): Promise<ResponseOperation<IUser>>;
 }
 
 // TODO Complete

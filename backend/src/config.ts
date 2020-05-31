@@ -19,4 +19,7 @@ export const config = {
             useCreateIndex      : true,
         }
     },
+    auth: {
+        token_key: process.env.TOKEN_KEY
+    }
 }

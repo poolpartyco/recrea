@@ -1,7 +1,7 @@
 /**
  * Importing required interfaces
  */
-import { IUser, IUserPrototype } from '../interfaces/UserInterfaces';
+import { IUser } from '../interfaces/UserInterfaces';
 /**
  * Importing Libreries
  */
@@ -9,13 +9,14 @@ import { Schema, model } from 'mongoose';
 import Validator from 'validator';
 import Bcrypt from 'bcryptjs';
 import JWT from 'jsonwebtoken';
+import { config } from '../config';
 
 const userSchema = new Schema({
     nickname:   { type: String, required: "The nickname is required", unique: "The nickname must be unique" },
     firstName:  { type: String, required: "The first Name is required" },
     lastName:   { type: String },
     phone:      { type: String  },
-    email:      { type: String, required: "The email is required", unique: true },
+    email:      { type: String, required: "The email is required", unique: true, lowercase: true },
     password:   { type: String, required: "The password is required"},
     tokens:     [ { token: { type: String, required: true } }],
     company:    { type: String },
@@ -43,26 +44,25 @@ userSchema.pre<IUser>('save', async function (next) {
 userSchema.methods.generateAuthToken = async function() {
     // Generate an auth token for the user
     const user = this
-    const token = JWT.sign({_id: user._id}, process.env.JWT_KEY)
+    const token = JWT.sign({_id: user._id}, config.auth.token_key)
     user.tokens = user.tokens.concat({token})
     await user.save()
     return token
 }
 
-userSchema.statics.findByCredentials = async (email: string, password: string) => {
-    // Search for a user by email and password.
-    const user: IUser = await User.findOne({ email} )
-    if (!user) {
-        throw new Error('Invalid login credentials');
-    }
-    const isPasswordMatch = await Bcrypt.compare(password, user.password)
-    if (!isPasswordMatch) {
-        throw new Error('Invalid login credentials');
-    }
-    return user
+userSchema.methods.removeAuthToken = async function(token: string): Promise<IUser> {
+    // Remove an auth token for the user
+    const user: IUser = this;
+    user.tokens = user.tokens.filter((t: any) => t.token !== token)
+    return user.save()
 }
-const User = model<IUser>('User', userSchema)
-module.exports = User
+
+userSchema.methods.validatePassword =  async function(password: string): Promise<boolean>{
+    return Bcrypt.compare(password, this.password)
+}
+
+const User = model<IUser>('User', userSchema);
+export default User;
 
 
 
