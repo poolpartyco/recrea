@@ -1,14 +1,18 @@
 <template>
   <v-card class="product mx-auto">
-    <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      height="200px"
-    >
-      <v-chip class="ma-2" color="pink" label text-color="white">
-        <v-icon left>mdi-label</v-icon>
-        {{ type ? 'Ofertado' : 'Buscado' }}
-      </v-chip>
-    </v-img>
+    <a :href="'/user/' + publisher._id">
+      <v-img
+        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        height="200px"
+      >
+        <v-chip v-if="type" class="ma-2" color="green" label text-color="white">
+          <v-icon left>mdi-star</v-icon> Ofertado
+        </v-chip>
+        <v-chip v-else class="ma-2" color="orange" label text-color="white">
+          <v-icon left>mdi-magnify</v-icon> Buscado
+        </v-chip>
+      </v-img>
+    </a>
 
     <v-card-title>
       {{ name }}
@@ -17,16 +21,21 @@
     <v-card-text>
       <p class="product-quantity">
         <span>Cantidad: </span>
-        <span>{{ quantity }}</span>
+        <span>{{ quantity }} {{ metric }}</span>
       </p>
       <p class="product-price">
         <span>{{ type ? 'Precio' : 'Precio Deseado' }}: </span>
-        <span>{{ metricPrice }}</span>
+        <span>$ {{ formatNumber(metricPrice) }}</span>
       </p>
     </v-card-text>
 
     <v-card-actions>
-      <v-btn class="product-company" text :to="'/user/' + publisher._id">
+      <v-btn
+        v-if="!onProfile"
+        class="product-company"
+        text
+        :to="'/user/' + publisher._id"
+      >
         {{ publisher.company }}
       </v-btn>
       <v-spacer></v-spacer>
@@ -57,6 +66,10 @@ export default {
       default: 'description',
       type: String
     },
+    metric: {
+      default: '',
+      type: String
+    },
     metricPrice: {
       default: 0,
       type: Number
@@ -77,11 +90,20 @@ export default {
     type: {
       default: false,
       type: Boolean
+    },
+    onProfile: {
+      default: false,
+      type: Boolean
     }
   },
   data: () => ({
     show: false
-  })
+  }),
+  methods: {
+    formatNumber(number) {
+      return new Intl.NumberFormat().format(number)
+    }
+  }
 }
 </script>
 

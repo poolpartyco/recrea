@@ -21,7 +21,8 @@
               v-bind="product"
               :type="false"
               :name="product.productName"
-              :metricPrice="product.desiredPrice"
+              :metric-price="product.desiredPrice"
+              :publisher="{ company: product.company, _id: product.userId }"
             />
           </v-flex>
         </v-layout>

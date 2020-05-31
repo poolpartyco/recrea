@@ -34,7 +34,7 @@
             sm6
             md4
           >
-            <product v-bind="product" />
+            <product v-bind="product" :type="true" :on-profile="true" />
           </v-flex>
         </v-layout>
       </section>
@@ -48,7 +48,13 @@
             sm6
             md4
           >
-            <product v-bind="product" />
+            <product
+              v-bind="product"
+              :type="false"
+              :on-profile="true"
+              :name="product.productName"
+              :metric-price="product.desiredPrice"
+            />
           </v-flex>
         </v-layout>
       </section>
@@ -139,7 +145,7 @@ export default {
         `${config.backend.host}:${config.backend.port}/api/wishlist/byUserId/${this.id}`
       )
       .then((res) => {
-        this.searchingProducts = res.data.data.result
+        this.searchingProducts = res.data.data
         this.searchingProductsTotal = res.data.data.total
       })
     return { availableProducts, searchingProducts, user }
